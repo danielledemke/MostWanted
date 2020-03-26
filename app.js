@@ -37,14 +37,29 @@ function mainMenu(person, people){
 
   switch(displayOption){
     case "info":
-    // TODO: get person's info
+    displayPerson(person);
     break;
     case "family":
-    // TODO: get person's family
-    break;
+      let family = people.filter(function(el){
+        if(el.parents == person.id || el.currentSpouse == person.id || el.parents == person.parents){
+            return true;
+        
+        }else{
+            return false;
+      }
+      })
+      displayPeople(family);
+     break;
     case "descendants":
-    // TODO: get person's descendants
-    break;
+      let children = people.filter(function(el){
+          if(el.parents == person.id){
+              return true;
+         }else{
+            return false;
+      }
+     })
+      displayPeople(children);
+     break;
     case "restart":
     app(people); // restart
     break;
