@@ -38,6 +38,7 @@ function mainMenu(person, people){
   switch(displayOption){
     case "info":
     // TODO: get person's info
+    displayPerson(person)
     break;
     case "family":
     // TODO: get person's family
@@ -70,7 +71,71 @@ function searchByName(people){
   // TODO: find the person using the name they entered
   return foundPerson;
 }
+function searchBySingleTrait(people){
 
+  let traitType = promptFor("Search by trait: Gender, D.O.B(MM/DD/YYYY), Height, Weight, Eye Color, Occupation", chars).toLowerCase();
+  let traitArray = []
+  let inputGender = prompt("Please enter 'Male' or 'Female': " );
+
+    switch(traitType){
+      case "gender":
+        traitType = people.filter(function(el){
+          if(el.gender == inputGender){
+            return true;
+          }
+        });
+        return traitArray;
+      case "dob":
+        let inputDob = prompt("Please enter 'D.O.B.' MM/DD/YYYY: ");
+        traitType = people.filter(function(el){
+          if(el.dob == inputDob){
+            return true;
+          }          
+        });
+        //return traitArray
+      case "height":
+        let inputHeight = prompt("Please enter 'height': ");
+        let inputHeight = people.filter(function(el){
+          if(el.height == inputHeight){
+            return true;
+          }
+        });
+        //return traitArray;
+      case "weight":
+        let inputWeight = prompt("Please enter 'weight': ");  
+        let inputWeight = people.filter(function(el){
+          if(el.weight == inputWeight){
+            return true;
+          }
+        });
+        //return traitArray;
+      case "eye color":
+        let inputColor = prompt("Please eenter 'eye color': ");
+        let inputColor = people.filter(function(el){
+          if (el.eyeColor == inputColor) {
+            return true;
+          }
+        });
+        //return traitArray;
+      case "occupation":
+        let inputOccupation = prompt("Please enter 'occupation': ");
+        let inputOccupation = people.filter(function(el){
+          if (el.occupation == inputOccupation) {
+            return true;
+          }
+        });
+        //return traitArray;
+      default:
+          alert("Please enter a valid response.")
+         searchBySingleTrait(people);
+         break;
+      
+
+      
+    }
+    
+  
+}
 // alerts a list of people
 function displayPeople(people){
   alert(people.map(function(person){
