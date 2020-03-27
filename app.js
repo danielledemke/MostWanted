@@ -97,8 +97,8 @@ function searchForFamily(person, people){
     }
     else{
         return false;
-  }
-  })
+    }
+  });
   displayPeople(family);
 }
 
@@ -166,9 +166,9 @@ function searchByMultipleTraits(people){
   let gender = promptFor("Please enter 'gender', type 'n/a' to skip: ", chars);
   let dob = promptFor("Please enter 'Date of birth',  MM/DD/YYYY, type 'n/a' to skip: ", chars);
   let height = promptFor("Please enter 'height', type 'n/a' to skip: ", chars);
-  let weight = promptFor("Please enter 'weight': ", chars);
-  let eyeColor = promptFor("Please enter 'eye color': ",chars);
-  let occupation = promptFor("Please enter 'occupation': ")
+  let weight = promptFor("Please enter 'weight', type 'n/a' to skip: ", chars);
+  let eyeColor = promptFor("Please enter 'eye color', type 'n/a' to skip: ",chars);
+  let occupation = promptFor("Please enter 'occupation', type 'n/a' to skip: ")
 
   let peopleSearch = people;
   peopleSearch = people.filter(function(el){
@@ -256,6 +256,4 @@ function yesNo(input){
 // helper function to pass in as default promptFor validation
 function chars(input){
   return true; // default validation only
-}
-
 }
