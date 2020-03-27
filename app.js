@@ -13,7 +13,7 @@ function app(people){
       break;
     case 'no':
       // TODO: search by traits
-      searchResults = searchByMultipleTraits(people);
+       searchResults = searchByMultipleTraits(people);
       break;
       default:
     app(people); // restart app
@@ -118,7 +118,7 @@ function searchBySingleTrait(people){
         return traitArray;
       case "dob":
         let inputDob = prompt("Please enter 'Date of birth' MM/DD/YYYY: ");
-        let traitArray = people.filter(function(el){
+         traitArray = people.filter(function(el){
           if(el.dob == inputDob){
             return true;
           }          
@@ -135,7 +135,7 @@ function searchBySingleTrait(people){
       case "weight":
         let inputWeight = prompt("Please enter 'weight': ");  
         let weightTraitArray= people.filter(function(el){
-          if(el.weight == inputWeight){
+          if(el.weight == parseInt(inputWeight)){
             return true;
           }
         });
@@ -178,7 +178,6 @@ function searchByMultipleTraits(people){
       return el;
     }  
   });
-  let peopleSearch = people;
   peopleSearch = people.filter(function(el){
     if(dob == "n/a"){
       return peopleSearch;
@@ -186,7 +185,6 @@ function searchByMultipleTraits(people){
       return el;
     }  
   });
-  let peopleSearch = people;
   peopleSearch = people.filter(function(el){
     if(height == "n/a"){
       return peopleSearch;
@@ -194,7 +192,6 @@ function searchByMultipleTraits(people){
       return el;
     }  
   });
-  let peopleSearch = people;
   peopleSearch = people.filter(function(el){
     if(weight == "n/a"){
       return peopleSearch;
@@ -202,7 +199,6 @@ function searchByMultipleTraits(people){
       return el;
     }  
   });
-  let peopleSearch = people;
   peopleSearch = people.filter(function(el){
     if(eyeColor == "n/a"){
       return peopleSearch;
@@ -210,7 +206,6 @@ function searchByMultipleTraits(people){
       return el;
     }  
   });
-  let peopleSearch = people;
   peopleSearch = people.filter(function(el){
     if(occupation == "n/a"){
       return peopleSearch;
@@ -219,10 +214,7 @@ function searchByMultipleTraits(people){
     }  
   });
   return peopleSearch[0];
-
-
-
-
+}
 
 // alerts a list of people
 function displayPeople(people){
