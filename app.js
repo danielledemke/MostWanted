@@ -13,7 +13,7 @@ function app(people){
       break;
     case 'no':
       // TODO: search by traits
-       searchResults = searchByMultipleTraits(people);
+      searchResults = searchChoice(people)
       break;
       default:
     app(people); // restart app
@@ -215,6 +215,19 @@ function searchByMultipleTraits(people){
   });
   return peopleSearch[0];
 }
+function searchChoice(people){
+  let searchResults = promptFor("Search by single or multiple traits? Enter 'single' or 'multiple' :")
+  let Chosen;
+  switch (searchResults){
+    case 'single':
+      searchResults = searchBySingleTrait(people);
+      break;
+    case 'multiple':
+      searchResults = searchByMultipleTraits(people)
+       break;
+  }
+}
+
 
 // alerts a list of people
 function displayPeople(people){
