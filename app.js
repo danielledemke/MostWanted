@@ -13,6 +13,7 @@ function app(people){
       break;
     case 'no':
       // TODO: search by traits
+      searchResults = searchByMultipleTraits(people);
       break;
       default:
     app(people); // restart app
@@ -93,15 +94,15 @@ function searchBySingleTrait(people){
 
     switch(traitType){
       case "gender":
-        traitType = people.filter(function(el){
+        traitArray = people.filter(function(el){
           if(el.gender == inputGender){
             return true;
           }
         });
         return traitArray;
       case "dob":
-        let inputDob = prompt("Please enter 'D.O.B.' MM/DD/YYYY: ");
-        traitType = people.filter(function(el){
+        let inputDob = prompt("Please enter 'Date of birth' MM/DD/YYYY: ");
+        let traitArray = people.filter(function(el){
           if(el.dob == inputDob){
             return true;
           }          
@@ -109,47 +110,104 @@ function searchBySingleTrait(people){
         //return traitArray
       case "height":
         let inputHeight = prompt("Please enter 'height': ");
-        let inputHeight = people.filter(function(el){
+        let heightTraitArray = people.filter(function(el){
           if(el.height == inputHeight){
             return true;
           }
         });
-        //return traitArray;
+        return heightTraitArray;
       case "weight":
         let inputWeight = prompt("Please enter 'weight': ");  
-        let inputWeight = people.filter(function(el){
+        let weightTraitArray= people.filter(function(el){
           if(el.weight == inputWeight){
             return true;
           }
         });
-        //return traitArray;
+        return weightTraitArray;
       case "eye color":
         let inputColor = prompt("Please eenter 'eye color': ");
-        let inputColor = people.filter(function(el){
+        let colorTraitArray = people.filter(function(el){
           if (el.eyeColor == inputColor) {
             return true;
           }
         });
-        //return traitArray;
+        return colorTraitArray;
       case "occupation":
-        let inputOccupation = prompt("Please enter 'occupation': ");
-        let inputOccupation = people.filter(function(el){
+        let inputOccupation = prompt( "Please enter 'occupation': ");
+        let occupationTraitArray = people.filter(function(el){
           if (el.occupation == inputOccupation) {
             return true;
           }
         });
-        //return traitArray;
+        return occupationTraitArray;
       default:
           alert("Please enter a valid response.")
          searchBySingleTrait(people);
          break;
-      
-
-      
-    }
-    
-  
+    }     
 }
+function searchByMultipleTraits(people){
+  let gender = promptFor("Please enter 'gender', type 'n/a' to skip: ", chars);
+  let dob = promptFor("Please enter 'Date of birth',  MM/DD/YYYY, type 'n/a' to skip: ", chars);
+  let height = promptFor("Please enter 'height', type 'n/a' to skip: ", chars);
+  let weight = promptFor("Please enter 'weight': ", chars);
+  let eyeColor = promptFor("Please enter 'eye color': ",chars);
+  let occupation = promptFor("Please enter 'occupation': ")
+
+  let peopleSearch = people;
+  peopleSearch = people.filter(function(el){
+    if(gender == "n/a"){
+      return peopleSearch;
+    }else if(el.gender == gender){
+      return el;
+    }  
+  });
+  let peopleSearch = people;
+  peopleSearch = people.filter(function(el){
+    if(dob == "n/a"){
+      return peopleSearch;
+    }else if(el.dob == dob){
+      return el;
+    }  
+  });
+  let peopleSearch = people;
+  peopleSearch = people.filter(function(el){
+    if(height == "n/a"){
+      return peopleSearch;
+    }else if(el.height == height){
+      return el;
+    }  
+  });
+  let peopleSearch = people;
+  peopleSearch = people.filter(function(el){
+    if(weight == "n/a"){
+      return peopleSearch;
+    }else if(el.weight == weight){
+      return el;
+    }  
+  });
+  let peopleSearch = people;
+  peopleSearch = people.filter(function(el){
+    if(eyeColor == "n/a"){
+      return peopleSearch;
+    }else if(el.eyeColor == eyeColor){
+      return el;
+    }  
+  });
+  let peopleSearch = people;
+  peopleSearch = people.filter(function(el){
+    if(occupation == "n/a"){
+      return peopleSearch;
+    }else if(el.occupation == occupation){
+      return el;
+    }  
+  });
+  return peopleSearch[0];
+
+
+
+
+
 // alerts a list of people
 function displayPeople(people){
   alert(people.map(function(person){
@@ -163,7 +221,7 @@ function displayPerson(person){
   let personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
   personInfo += "Gender: " + person.gender + "\n";
-  personInfo += "Age: " + person.age + "n"; // Possible correlation with date of birth? new Date(person.dob) or something
+  personInfo += "Age: " + new Date(person.dob) + "n"; // Possible correlation with date of birth? new Date(person.dob) or something
   personInfo += "Date of Birth: " + person.dob + "\n";
   personInfo += "Height: " + person.height + "\n";
   personInfo += "Weight: " + person.weight + "\n";
