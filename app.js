@@ -13,6 +13,7 @@ function app(people){
       break;
     case 'no':
       // TODO: search by traits
+      searchResults = searchByMultipleTraits(people);
       break;
       default:
     app(people); // restart app
@@ -127,3 +128,5 @@ function yesNo(input){
 function chars(input){
   return true; // default validation only
 }
+
+
