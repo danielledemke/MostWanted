@@ -41,25 +41,10 @@ function mainMenu(person, people){
     displayPerson(person);
     break;
     case "family":
-      let family = people.filter(function(el){
-        if(el.parents == person.id || el.currentSpouse == person.id || el.parents == person.parents){
-            return true;
-        
-        }else{
-            return false;
-      }
-      })
-      displayPeople(family);
+      searchForFamily(person, people);
      break;
     case "descendants":
-      let children = people.filter(function(el){
-          if(el.parents == person.id){
-              return true;
-         }else{
-            return false;
-      }
-     })
-      displayPeople(children);
+      searchForDescendants(person, people);      
      break;
     case "restart":
     app(people); // restart
@@ -86,14 +71,45 @@ function searchByName(people){
   // TODO: find the person using the name they entered
   return foundPerson;
 }
+
+function searchForDescendants(person, people){
+  let children = people.filter(function(el){
+    if(el.parents == person.id){
+        return true;
+   }else{
+      return false;
+}
+})
+displayPeople(children);
+}
+
+function searchForFamily(person, people){
+  let family = people.filter(function(el){
+    if(el.parents == person.id  ){
+        return true;
+    
+    }
+    else if( el.currentSpouse == person.id){
+
+    }
+    else if(el.parents == person.parents){
+      
+    }
+    else{
+        return false;
+  }
+  })
+  displayPeople(family);
+}
+
+
 function searchBySingleTrait(people){
 
   let traitType = promptFor("Search by trait: Gender, D.O.B(MM/DD/YYYY), Height, Weight, Eye Color, Occupation", chars).toLowerCase();
   let traitArray = []
-  let inputGender = prompt("Please enter 'Male' or 'Female': " );
-
     switch(traitType){
       case "gender":
+        let inputGender = prompt("Please enter 'Male' or 'Female': " );
         traitArray = people.filter(function(el){
           if(el.gender == inputGender){
             return true;
@@ -221,7 +237,7 @@ function displayPerson(person){
   let personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
   personInfo += "Gender: " + person.gender + "\n";
-  personInfo += "Age: " + new Date(person.dob) + "n"; // Possible correlation with date of birth? new Date(person.dob) or something
+  personInfo += "Age: " + new Date(person.dob) + "\n"; // Possible correlation with date of birth? new Date(person.dob) or something
   personInfo += "Date of Birth: " + person.dob + "\n";
   personInfo += "Height: " + person.height + "\n";
   personInfo += "Weight: " + person.weight + "\n";
@@ -250,4 +266,4 @@ function chars(input){
   return true; // default validation only
 }
 
-
+}
