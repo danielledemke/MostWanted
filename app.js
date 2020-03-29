@@ -16,6 +16,7 @@ function app(people){
       searchResults = searchChoice(people)
       break;
       default:
+        alert("Invaled input, please try again! ");
     app(people); // restart app
       break;
   }
@@ -42,9 +43,11 @@ function mainMenu(person, people){
     break;
     case "family":
       searchForFamily(person, people);
+     // displayFamily(person,people)
      break;
     case "descendants":
-      searchForDescendants(person, people);      
+      searchForDescendants(person, people);  
+     //displayDescendants(person,people)    
      break;
     case "restart":
     app(people); // restart
@@ -127,10 +130,20 @@ function displayFamily(person, people){
       }
       alert(familyInfo);
 }
-function displayDesendants(person, people){
+// function displayDescendants(person, people){
+//   let descendantsInfo = "";
+//   let descendantsDisplay = [];
 
-
-}
+//   for(let i = 0; i < people[i].length; i++){
+//     if(people.parents.Includes(person.id)){
+//       descendantsDisplay = descendantsDisplay.push(people[i]);
+//       displayDescendants(people[i]);
+//     }
+//   }
+//   displayDescendants.toString();
+//   console.log(descendantsDisplay);
+// alert(descendantsDisplay)
+// }
 
 function searchBySingleTrait(people){
 
@@ -255,7 +268,7 @@ function searchChoice(people){
       searchResults = searchByMultipleTraits(people)
        break;
   }
-}
+}return searchResults;
 
 
 // alerts a list of people
