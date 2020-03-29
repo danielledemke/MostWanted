@@ -4,16 +4,28 @@ Build all of your functions for displaying and gathering information below (GUI)
 */
 
 // app is the function called to start the entire application
+function start(people){
+  document.getElementById("search").innerHTML = app(people);
+}
+
 function app(people){
-  let searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
-  let searchResults;
+ 
+  var searchType = prompt("Do you know the name of the person you are looking for? Enter 'yes' or 'no'").yesNo();
+  var searchResults;
   switch(searchType){
     case 'yes':
       searchResults = searchByName(people);
       break;
     case 'no':
-      // TODO: search by traits
-      searchResults = searchChoice(people)
+      let traitSearch = prompt("Would you like to search by single trait or multiple traits? Enter 'single' or 'multiple'");
+      if(traitSearch == "single"){
+        searchResults = searchBySingleTrait(people);
+      }else if(traitSearch == "multiple"){
+        searchResults = searchByMultipleTraits(people);
+      }else{
+        app(people);
+      }
+
       break;
       default:
         alert("Invaled input, please try again! ");
@@ -84,6 +96,7 @@ function searchForDescendants(person, people){
 }
 })
 displayPeople(children);
+//need to use a default parameter array and use recursion to keep adding to the array
 }
 
 function searchForFamily(person, people){
@@ -130,20 +143,21 @@ function displayFamily(person, people){
       }
       alert(familyInfo);
 }
-// function displayDescendants(person, people){
-//   let descendantsInfo = "";
-//   let descendantsDisplay = [];
 
-//   for(let i = 0; i < people[i].length; i++){
-//     if(people.parents.Includes(person.id)){
-//       descendantsDisplay = descendantsDisplay.push(people[i]);
-//       displayDescendants(people[i]);
-//     }
-//   }
-//   displayDescendants.toString();
-//   console.log(descendantsDisplay);
-// alert(descendantsDisplay)
-// }
+}
+function displayDesendants(person, people){
+   let familyInfo = "";
+   let descendantsDisplay = [];
+  for(let i = 0; i < people[i].length; i++){
+    if(people.parents.Includes(person.id)){
+      descendantsDisplay = descendantsDisplay.push(people[i]);
+      displayDescendants(people[i]);
+    }
+  }
+  displayDescendants.toString();
+  console.log(descendantsDisplay);
+  alert(descendantsDisplay)
+}
 
 function searchBySingleTrait(people){
 

@@ -2,11 +2,32 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>devCodeCamp &middot; Most Wanted</title>
+    <style>
+      body {
+        background-color: lightslategrey;
+      }
+      
+      h1 {
+        color: black;
+        text-align: center;
+      } 
+      div {
+      text-align: center;
+
+    }
+      </style>
   </head>
   <body>
-    <button onclick="app(data)">Start Searching</button>
-    <script src="data.js"></script>
+    <h1>Most Wanted Search</h1>
+    <div>
+      <p id="search"></p>
+      <button onclick="start(data)">Start Searching</button>
+    </div>
+
     <script src="app.js"></script>
+    <script src="data.js"></script>
+    
   </body>
 </html>
