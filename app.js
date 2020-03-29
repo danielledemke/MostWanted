@@ -81,6 +81,7 @@ function searchForDescendants(person, people){
 }
 })
 displayPeople(children);
+//need to use a default parameter array and use recursion to keep adding to the array
 }
 
 function searchForFamily(person, people){
