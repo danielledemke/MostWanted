@@ -4,16 +4,28 @@ Build all of your functions for displaying and gathering information below (GUI)
 */
 
 // app is the function called to start the entire application
+function start(people){
+  document.getElementById("search").innerHTML = app(people);
+}
+
 function app(people){
-  let searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
-  let searchResults;
+ 
+  var searchType = prompt("Do you know the name of the person you are looking for? Enter 'yes' or 'no'").yesNo();
+  var searchResults;
   switch(searchType){
     case 'yes':
       searchResults = searchByName(people);
       break;
     case 'no':
-      // TODO: search by traits
-      searchResults = searchChoice(people)
+      let traitSearch = prompt("Would you like to search by single trait or multiple traits? Enter 'single' or 'multiple'");
+      if(traitSearch == "single"){
+        searchResults = searchBySingleTrait(people);
+      }else if(traitSearch == "multiple"){
+        searchResults = searchByMultipleTraits(people);
+      }else{
+        app(people);
+      }
+
       break;
       default:
     app(people); // restart app
@@ -127,6 +139,7 @@ function displayFamily(person, people){
         }
       }
       alert(familyInfo);
+}
 }
 function displayDesendants(person, people){
 
