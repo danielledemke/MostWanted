@@ -102,6 +102,35 @@ function searchForFamily(person, people){
   displayPeople(family);
 }
 
+function displayFamily(person, people){
+      let familyInfo = "";
+      for( let i = 0; i, people.length; i++){
+        if (person.parents.Includes(people[i].id)) {
+          if(people[i].gender === "male"){
+             familyInfo += "Father: " + people[i].firstName + " " + people[i].lastName + "\n";
+            } else if(people[i].gender === "female"){
+             familyInfo +=  "Mother: " + people[i].firstName + " " + people[i].lastName + "\n";
+            }if (person.parents === people[i].parents && person.id !== people[i].id) {
+              if(people[i].gender === "male"){
+                familyInfo += "Brother: " + people[i].firstName + " " + people[i].lastName + "\n";
+              } else if(people[i].gender === "female"){
+                familyInfo +=  "Sister: " + people[i].firstName + " " + people[i].lastName + "\n";
+             }if (person.parents.Includes(people[i].id)){
+               if(people[i].gender === "male"){
+                familyInfo += "Son: " + people[i].firstName + " " + people[i].lastName + "\n";
+               }else familyInfo += "Daughter: " + people[i].firstName + " " + people[i].lastName + "\n";
+              }  if(person.currentSpouse == people[i].id){
+                familyInfo += "Spouse: " + people[i].firstName + " " + people[i].lastName + "\n";
+              }
+
+        }
+      }
+      alert(familyInfo);
+}
+function displayDesendants(person, people){
+
+
+}
 
 function searchBySingleTrait(people){
 
