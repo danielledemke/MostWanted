@@ -13,7 +13,7 @@ function app(people){
       break;
     case 'no':
       // TODO: search by traits
-       searchResults = searchByMultipleTraits(people);
+      searchResults = searchChoice(people)
       break;
       default:
     app(people); // restart app
@@ -98,11 +98,40 @@ function searchForFamily(person, people){
     }
     else{
         return false;
-  }
-  })
+    }
+  });
   displayPeople(family);
 }
 
+function displayFamily(person, people){
+      let familyInfo = "";
+      for( let i = 0; i, people.length; i++){
+        if (person.parents.Includes(people[i].id)) {
+          if(people[i].gender === "male"){
+             familyInfo += "Father: " + people[i].firstName + " " + people[i].lastName + "\n";
+            } else if(people[i].gender === "female"){
+             familyInfo +=  "Mother: " + people[i].firstName + " " + people[i].lastName + "\n";
+            }if (person.parents === people[i].parents && person.id !== people[i].id) {
+              if(people[i].gender === "male"){
+                familyInfo += "Brother: " + people[i].firstName + " " + people[i].lastName + "\n";
+              } else if(people[i].gender === "female"){
+                familyInfo +=  "Sister: " + people[i].firstName + " " + people[i].lastName + "\n";
+             }if (person.parents.Includes(people[i].id)){
+               if(people[i].gender === "male"){
+                familyInfo += "Son: " + people[i].firstName + " " + people[i].lastName + "\n";
+               }else familyInfo += "Daughter: " + people[i].firstName + " " + people[i].lastName + "\n";
+              }  if(person.currentSpouse == people[i].id){
+                familyInfo += "Spouse: " + people[i].firstName + " " + people[i].lastName + "\n";
+              }
+
+        }
+      }
+      alert(familyInfo);
+}
+function displayDesendants(person, people){
+
+
+}
 
 function searchBySingleTrait(people){
 
@@ -167,9 +196,9 @@ function searchByMultipleTraits(people){
   let gender = promptFor("Please enter 'gender', type 'n/a' to skip: ", chars);
   let dob = promptFor("Please enter 'Date of birth',  MM/DD/YYYY, type 'n/a' to skip: ", chars);
   let height = promptFor("Please enter 'height', type 'n/a' to skip: ", chars);
-  let weight = promptFor("Please enter 'weight': ", chars);
-  let eyeColor = promptFor("Please enter 'eye color': ",chars);
-  let occupation = promptFor("Please enter 'occupation': ")
+  let weight = promptFor("Please enter 'weight', type 'n/a' to skip: ", chars);
+  let eyeColor = promptFor("Please enter 'eye color', type 'n/a' to skip: ",chars);
+  let occupation = promptFor("Please enter 'occupation', type 'n/a' to skip: ")
 
   let peopleSearch = people;
   peopleSearch = people.filter(function(el){
@@ -216,6 +245,19 @@ function searchByMultipleTraits(people){
   });
   return peopleSearch[0];
 }
+function searchChoice(people){
+  let searchResults = promptFor("Search by single or multiple traits? Enter 'single' or 'multiple' :")
+  let Chosen;
+  switch (searchResults){
+    case 'single':
+      searchResults = searchBySingleTrait(people);
+      break;
+    case 'multiple':
+      searchResults = searchByMultipleTraits(people)
+       break;
+  }
+}
+
 
 // alerts a list of people
 function displayPeople(people){
@@ -257,6 +299,4 @@ function yesNo(input){
 // helper function to pass in as default promptFor validation
 function chars(input){
   return true; // default validation only
-}
-
 }
