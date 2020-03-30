@@ -10,26 +10,29 @@ function start(people){
 
 function app(people){
  
-  var searchType = prompt("Do you know the name of the person you are looking for? Enter 'yes' or 'no'").yesNo();
+  var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo ).toLowerCase();
   var searchResults;
   switch(searchType){
     case 'yes':
-      searchResults = searchByName(people);
+      var foundPerson = searchByName(people);
+      mainMenu(foundPerson, people);
       break;
     case 'no':
-      let traitSearch = prompt("Would you like to search by single trait or multiple traits? Enter 'single' or 'multiple'");
+      searchResults = prompt("Would you like to search by single trait or multiple traits? Enter 'single' or 'multiple'");
       if(traitSearch == "single"){
         searchResults = searchBySingleTrait(people);
+        
       }else if(traitSearch == "multiple"){
         searchResults = searchByMultipleTraits(people);
+        
       }else{
         app(people);
       }
 
       break;
       default:
-        alert("Invaled input, please try again! ");
-    app(people); // restart app
+       alert("Invaled input, please try again! ");
+      app(people); // restart app
       break;
   }
   
@@ -51,15 +54,16 @@ function mainMenu(person, people){
 
   switch(displayOption){
     case "info":
-    displayPerson(person);
+     displayOption = displayPerson(person);
     break;
     case "family":
-      searchForFamily(person, people);
-     // displayFamily(person,people)
+     displayOption = searchForFamily(person, people);
+     //displayOption = displayFamily(person, people);
+   
      break;
     case "descendants":
-      searchForDescendants(person, people);  
-     //displayDescendants(person,people)    
+     displayOption = searchForDescendants(person, people);  
+     //displayOption = displayDescendants(person, people);    
      break;
     case "restart":
     app(people); // restart
@@ -82,9 +86,9 @@ function searchByName(people){
     else{
       return false;
     }
-  })
+  });
   // TODO: find the person using the name they entered
-  return foundPerson;
+  return foundPerson[0];
 }
 
 function searchForDescendants(person, people){
@@ -118,45 +122,64 @@ function searchForFamily(person, people){
   displayPeople(family);
 }
 
-function displayFamily(person, people){
-      let familyInfo = "";
-      for( let i = 0; i, people.length; i++){
-        if (person.parents.Includes(people[i].id)) {
-          if(people[i].gender === "male"){
-             familyInfo += "Father: " + people[i].firstName + " " + people[i].lastName + "\n";
-            } else if(people[i].gender === "female"){
-             familyInfo +=  "Mother: " + people[i].firstName + " " + people[i].lastName + "\n";
-            }if (person.parents === people[i].parents && person.id !== people[i].id) {
-              if(people[i].gender === "male"){
-                familyInfo += "Brother: " + people[i].firstName + " " + people[i].lastName + "\n";
-              } else if(people[i].gender === "female"){
-                familyInfo +=  "Sister: " + people[i].firstName + " " + people[i].lastName + "\n";
-             }if (person.parents.Includes(people[i].id)){
-               if(people[i].gender === "male"){
-                familyInfo += "Son: " + people[i].firstName + " " + people[i].lastName + "\n";
-               }else familyInfo += "Daughter: " + people[i].firstName + " " + people[i].lastName + "\n";
-              }  if(person.currentSpouse == people[i].id){
-                familyInfo += "Spouse: " + people[i].firstName + " " + people[i].lastName + "\n";
-              }
+// function displayFamily(person, people){
+//       let familyInfo = "";
+//       for( let i = 0; i, people.length; i++)
+//       {
+//         if (person.parents.includes(people[i].Id))
+//          {
+//           if(people[i].gender === "male")
+//           {
+//              familyInfo += "Father: " + people[i].firstName + " " + people[i].lastName + "\n";
+//           }
+//           else if(people[i].gender === "female")
+//           {
+//              familyInfo +=  "Mother: " + people[i].firstName + " " + people[i].lastName + "\n";
+//           }
 
-        }
-      }
-      alert(familyInfo);
-}
+//             if (person.parents === people[i].parents && person.id !== people[i].Id) 
+//             {
+//               if(people[i].gender === "male")
+//               {
+//                 familyInfo += "Brother: " + people[i].firstName + " " + people[i].lastName + "\n";
+//               } 
+//               else if(people[i].gender === "female")
+//               {
+//                 familyInfo +=  "Sister: " + people[i].firstName + " " + people[i].lastName + "\n";
+//               }
+//             }  
+//            if (person.parents.includes(people[i].Id))             
+//             {
+//                if(people[i].gender === "male")
+//              {
+//                 familyInfo += "Son: " + people[i].firstName + " " + people[i].lastName + "\n";
+//                }
+//                else familyInfo += "Daughter: " + people[i].firstName + " " + people[i].lastName + "\n";
+//               }  
+//               if(person.currentSpouse == people[i].Id)
+//               {
+//                 familyInfo += "Spouse: " + people[i].firstName + " " + people[i].lastName + "\n";
+//               }
+//             }
+            
 
-}
+//       }
+//          alert(familyInfo);  
+//}
+
 function displayDesendants(person, people){
    let familyInfo = "";
    let descendantsDisplay = [];
   for(let i = 0; i < people[i].length; i++){
-    if(people.parents.Includes(person.id)){
+    if(people.parents.includes(person.id)){
       descendantsDisplay = descendantsDisplay.push(people[i]);
       displayDescendants(people[i]);
     }
   }
   displayDescendants.toString();
   console.log(descendantsDisplay);
-  alert(descendantsDisplay)
+  alert(descendantsDisplay);
+  
 }
 
 function searchBySingleTrait(people){
@@ -171,7 +194,7 @@ function searchBySingleTrait(people){
             return true;
           }
         });
-        return traitArray;
+        return traitArray[0];
       case "dob":
         let inputDob = prompt("Please enter 'Date of birth' MM/DD/YYYY: ");
          traitArray = people.filter(function(el){
@@ -179,7 +202,7 @@ function searchBySingleTrait(people){
             return true;
           }          
         });
-        //return traitArray
+        return traitArray[0];
       case "height":
         let inputHeight = prompt("Please enter 'height': ");
         let heightTraitArray = people.filter(function(el){
@@ -187,7 +210,7 @@ function searchBySingleTrait(people){
             return true;
           }
         });
-        return heightTraitArray;
+        return heightTraitArray[0];
       case "weight":
         let inputWeight = prompt("Please enter 'weight': ");  
         let weightTraitArray= people.filter(function(el){
@@ -195,15 +218,15 @@ function searchBySingleTrait(people){
             return true;
           }
         });
-        return weightTraitArray;
+        return weightTraitArray[0];
       case "eye color":
-        let inputColor = prompt("Please eenter 'eye color': ");
+        let inputColor = prompt("Please enter 'eye color': ");
         let colorTraitArray = people.filter(function(el){
           if (el.eyeColor == inputColor) {
             return true;
           }
         });
-        return colorTraitArray;
+        return colorTraitArray[0];
       case "occupation":
         let inputOccupation = prompt( "Please enter 'occupation': ");
         let occupationTraitArray = people.filter(function(el){
@@ -211,7 +234,7 @@ function searchBySingleTrait(people){
             return true;
           }
         });
-        return occupationTraitArray;
+        return occupationTraitArray[0];
       default:
           alert("Please enter a valid response.")
          searchBySingleTrait(people);
@@ -224,7 +247,7 @@ function searchByMultipleTraits(people){
   let height = promptFor("Please enter 'height', type 'n/a' to skip: ", chars);
   let weight = promptFor("Please enter 'weight', type 'n/a' to skip: ", chars);
   let eyeColor = promptFor("Please enter 'eye color', type 'n/a' to skip: ",chars);
-  let occupation = promptFor("Please enter 'occupation', type 'n/a' to skip: ")
+  let occupation = promptFor("Please enter 'occupation', type 'n/a' to skip: ", chars)
 
   let peopleSearch = people;
   peopleSearch = people.filter(function(el){
@@ -253,7 +276,7 @@ function searchByMultipleTraits(people){
       return peopleSearch;
     }else if(el.weight == weight){
       return el;
-    }  
+    } 
   });
   peopleSearch = people.filter(function(el){
     if(eyeColor == "n/a"){
@@ -270,19 +293,20 @@ function searchByMultipleTraits(people){
     }  
   });
   return peopleSearch[0];
+
 }
-function searchChoice(people){
-  let searchResults = promptFor("Search by single or multiple traits? Enter 'single' or 'multiple' :")
-  let Chosen;
-  switch (searchResults){
-    case 'single':
-      searchResults = searchBySingleTrait(people);
-      break;
-    case 'multiple':
-      searchResults = searchByMultipleTraits(people)
-       break;
-  }
-}return searchResults;
+// function searchChoice(people){
+//   let searchResults = promptFor("Search by single or multiple traits? Enter 'single' or 'multiple' :")
+//   let Chosen;
+//   switch (searchResults){
+//     case 'single':
+//       searchResults = searchBySingleTrait(people);
+//       break;
+//     case 'multiple':
+//       searchResults = searchByMultipleTraits(people)
+//        break;
+//   }
+// }return searchResults;
 
 
 // alerts a list of people
@@ -307,6 +331,7 @@ function displayPerson(person){
 
      // TODO: finish getting the rest of the information to display
   alert(personInfo);
+  return mainMenu(person, people);
 }
 
 // function that prompts and validates user input
